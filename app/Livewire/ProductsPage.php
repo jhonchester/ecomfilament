@@ -6,14 +6,17 @@ use App\Helpers\CartManagement;
 use App\Livewire\Partials\Navbar;
 use App\Models\Category;
 use App\Models\Product;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Url;
 use Livewire\WithPagination;
 
+
 #[Title(content: 'Products Page | Spartan Commerce')]
 class ProductsPage extends Component
 {
+    use LivewireAlert;
     use WithPagination;
 
     #[Url]
@@ -38,6 +41,11 @@ class ProductsPage extends Component
 
         // Dispatch event with the total cart count
         $this->dispatch('update-cart-count', total_count: $total_count)->to(Navbar::class);
+        $this->alert('success', 'Product Added to the Cart Successfully!', [
+            'position' => 'bottom-end',
+            'timer' => 3000,
+            'toast' => true,
+        ]);
     }
     public function render()
     {
