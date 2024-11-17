@@ -104,43 +104,31 @@
 		</div>
 		<div class="md:col-span-12 lg:col-span-4 col-span-12">
 			<div class="bg-white rounded-xl shadow p-4 sm:p-7 dark:bg-slate-900">
-				<div class="text-xl font-bold underline text-gray-700 dark:text-white mb-2">
-					ORDER SUMMARY
+			<div class="text-xl font-bold underline text-gray-700 dark:text-white mb-2">
+    			ORDER SUMMARY
 				</div>
-				<div class="flex justify-between mb-2 font-bold">
-					<span>
-						Subtotal
-					</span>
-					<span>
-						45,000.00
-					</span>
-				</div>
-				<div class="flex justify-between mb-2 font-bold">
-					<span>
-						Taxes
-					</span>
-					<span>
-						0.00
-					</span>
-				</div>
-				<div class="flex justify-between mb-2 font-bold">
-					<span>
-						Shipping Cost
-					</span>
-					<span>
-						0.00
-					</span>
-				</div>
+
+				{{-- Loop through the cart items --}}
+				@foreach($cartItems as $item)
+					<div class="flex justify-between mb-2">
+						<span class="font-bold">{{ $item->name }}</span>  {{-- Item name --}}
+						<span>{{ $item->quantity }} x {{ Number::currency($item->price, 'PHP') }}</span> {{-- Quantity and price per item --}}
+					</div>
+				@endforeach
+
 				<hr class="bg-slate-400 my-4 h-1 rounded">
+
+				{{-- Subtotal --}}
 				<div class="flex justify-between mb-2 font-bold">
-					<span>
-						Grand Total
-					</span>
-					<span>
-						45,000.00
-					</span>
+					<span>Subtotal</span>
+					<span>{{ Number::currency($subtotal, 'PHP') }}</span>  {{-- Assuming you have a subtotal variable --}}
 				</div>
-				</hr>
+
+				{{-- Grand Total --}}
+				<div class="flex justify-between mb-2 font-bold">
+					<span>Grand Total</span>
+					<span>{{ Number::currency($grand_total, 'PHP') }}</span> {{-- Grand total variable --}}
+				</div>
 			</div>
 			<button class="bg-green-500 mt-4 w-full p-3 rounded-lg text-lg text-white hover:bg-green-600">
 				Place Order
